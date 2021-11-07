@@ -4,6 +4,11 @@
 
 SCRIPT_DIR="$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 
+case :$PATH: in
+  *:$SCRIPT_DIR:*)  ;;  # do nothing
+  *) PATH=$SCRIPT_DIR:$PATH ;;
+esac
+
 case :$LD_LIBRARY_PATH: in
   *:$SCRIPT_DIR:*)  ;;  # do nothing
   *) LD_LIBRARY_PATH=$SCRIPT_DIR:$LD_LIBRARY_PATH ;;
