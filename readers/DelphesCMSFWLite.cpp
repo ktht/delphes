@@ -125,7 +125,7 @@ void ConvertInput(fwlite::Event &event, Long64_t eventCounter,
 
   element = static_cast<HepMCEvent *>(branchEvent->NewEntry());
 
-  element->Number = eventCounter;
+  element->Number = event.id().event();
 
   element->ProcessID = handleGenEventInfo->signalProcessID();
   element->MPI = 1;
@@ -134,13 +134,13 @@ void ConvertInput(fwlite::Event &event, Long64_t eventCounter,
   element->AlphaQED = handleGenEventInfo->alphaQED();
   element->AlphaQCD = handleGenEventInfo->alphaQCD();
 
-  element->ID1 = 0;
-  element->ID2 = 0;
-  element->X1 = 0.0;
-  element->X2 = 0.0;
-  element->ScalePDF = 0.0;
-  element->PDF1 = 0.0;
-  element->PDF2 = 0.0;
+  element->ID1 = handleGenEventInfo->hasPDF() ? handleGenEventInfo->pdf()->id.first : 0;
+  element->ID2 = handleGenEventInfo->hasPDF() ? handleGenEventInfo->pdf()->id.second : 0;
+  element->X1 = handleGenEventInfo->hasPDF() ? handleGenEventInfo->pdf()->x.first : 0.0;
+  element->X2 = handleGenEventInfo->hasPDF() ? handleGenEventInfo->pdf()->x.second : 0.0;
+  element->ScalePDF = handleGenEventInfo->hasPDF() ? handleGenEventInfo->pdf()->scalePDF : 0.0;
+  element->PDF1 = handleGenEventInfo->hasPDF() ? handleGenEventInfo->pdf()->xPDF.first : 0.;
+  element->PDF2 = handleGenEventInfo->hasPDF() ? handleGenEventInfo->pdf()->xPDF.second : 0.;
 
   element->ReadTime = 0.0;
   element->ProcTime = 0.0;
@@ -337,7 +337,7 @@ int main(int argc, char *argv[])
 
   try
   {
-    outputFile = TFile::Open(argv[2], "CREATE");
+    outputFile = TFile::Open(argv[2], "RECREATE");
 
     if(outputFile == NULL)
     {
