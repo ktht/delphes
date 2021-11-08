@@ -34,6 +34,7 @@
 #include "ExRootAnalysis/ExRootClassifier.h"
 #include "ExRootAnalysis/ExRootFilter.h"
 #include "ExRootAnalysis/ExRootResult.h"
+#include "ExRootAnalysis/ExRootUtilities.h"
 
 #include "TDatabasePDG.h"
 #include "TFormula.h"
@@ -89,6 +90,9 @@ void PileUpMerger::Init()
   fFunction->SetRange(-fZVertexSpread, -fTVertexSpread, fZVertexSpread, fTVertexSpread);
 
   fileName = GetString("PileUpFile", "MinBias.pileup");
+  const std::string fileNameStr = FindInput(fileName, "DELPHES_PILEUP");
+  fileName = fileNameStr.data();
+  std::cout << "** INFO: using pile-up file: " << fileName << '\n';
   fReader = new DelphesPileUpReader(fileName);
 
   // import input array

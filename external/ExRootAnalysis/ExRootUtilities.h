@@ -18,4 +18,7 @@ void HistStyle(TH1 *hist, Bool_t stats = kTRUE);
 
 Bool_t FillChain(TChain *chain, const char *inputFileList);
 
+std::string FindInput(const char * fileName,
+                      const std::string & env_name);
+
 #endif // ExRootUtilities_h

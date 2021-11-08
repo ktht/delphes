@@ -47,6 +47,7 @@
 #include "ExRootAnalysis/ExRootProgressBar.h"
 #include "ExRootAnalysis/ExRootTreeBranch.h"
 #include "ExRootAnalysis/ExRootTreeWriter.h"
+#include "ExRootAnalysis/ExRootUtilities.h"
 
 #include "DataFormats/FWLite/interface/Event.h"
 #include "DataFormats/FWLite/interface/Handle.h"
@@ -351,7 +352,9 @@ int main(int argc, char *argv[])
     branchWeight = treeWriter->NewBranch("Weight", Weight::Class());
 
     confReader = new ExRootConfReader;
-    confReader->ReadFile(argv[1]);
+    const std::string confReaderStr = FindInput(argv[1], "DELPHES_CARDS");
+    std::cout << "** INFO: using config file: " << confReaderStr << '\n';
+    confReader->ReadFile(confReaderStr.data());
 
     modularDelphes = new Delphes("Delphes");
     modularDelphes->SetConfReader(confReader);

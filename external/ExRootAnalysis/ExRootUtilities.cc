@@ -15,6 +15,7 @@
 
 #include <fstream>
 #include <iostream>
+#include <filesystem>
 
 using namespace std;
 
@@ -70,6 +71,36 @@ Bool_t FillChain(TChain *chain, const char *inputFileList)
   }
 
   return kTRUE;
+}
+
+//------------------------------------------------------------------------------
+
+std::string FindInput(const char * fileName,
+                      const std::string & env_name)
+{
+  const std::string fileNameStr = fileName;
+  if(! fileNameStr.empty())
+  {
+    if(! std::filesystem::exists(fileNameStr))
+    {
+      if(const char * search_env = std::getenv(env_name.data()))
+      {
+        const std::filesystem::path candidate_file(fileNameStr);
+        std::istringstream ss(search_env);
+        std::string search_path;
+        while(std::getline(ss, search_path, ':'))
+        {
+          const std::filesystem::path candidate_dir(search_path);
+          const std::filesystem::path candidate_path = candidate_dir / candidate_file;
+          if(std::filesystem::exists(candidate_path))
+          {
+            return candidate_path.string();
+          }
+        }
+      }
+    }
+  }
+  return fileNameStr;
 }
 
 //------------------------------------------------------------------------------

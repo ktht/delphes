@@ -33,3 +33,4 @@ tmp
 *.cxxflags
 *.files
 *.includes
+.directory

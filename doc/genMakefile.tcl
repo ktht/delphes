@@ -213,8 +213,8 @@ DISPLAY_LIBS = $(shell $(RC) --evelibs) -lGuiHtml $(SYSLIBS)
 
 ifneq ($(CMSSW_FWLITE_INCLUDE_PATH),)
 HAS_CMSSW = true
-CXXFLAGS += -std=c++1y -I$(subst :, -I,$(CMSSW_FWLITE_INCLUDE_PATH))
-OPT_LIBS += -L$(subst include,lib,$(subst :, -L,$(CMSSW_FWLITE_INCLUDE_PATH)))
+CXXFLAGS += -lstdc++fs -std=c++17 -I$(subst :, -I,$(CMSSW_FWLITE_INCLUDE_PATH))
+OPT_LIBS += -lstdc++fs -L$(subst include,lib,$(subst :, -L,$(CMSSW_FWLITE_INCLUDE_PATH)))
 ifneq ($(CMSSW_RELEASE_BASE),)
 CXXFLAGS += -I$(CMSSW_RELEASE_BASE)/src
 endif
@@ -445,7 +445,7 @@ dist:
 %Dict.$(SrcSuf):
 	@mkdir -p $(@D)
 	@echo ">> Generating $@"
-	@rootcint -f $@ -c -Iexternal $<
+	@rootcint -f $@ -Iexternal $<
 	@mv $@ $@.base
 	@cat $< $@.base > $@
 	@rm $@.base
