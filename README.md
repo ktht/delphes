@@ -50,6 +50,8 @@ The `DelphesCMSFWLite` command can be cancelled at any time.
 Whatever has been processed during the execution will be saved to an Ntuple called `output.root`.
 For more information about PU simulation, see [these slides](https://indico.cern.ch/event/873524/contributions/3697290/attachments/1988392/3315700/Korea_DetectorSimulation2.pdf).
 
+In order to produce a flat tree from `output.root`, visit: https://github.com/ktht/DelphesNtuplizer
+
 Quick start with Delphes
 ========================
 
