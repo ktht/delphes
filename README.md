@@ -14,6 +14,8 @@ The following changes have been implemented wrt 3.5.0 version of upstream:
 
 * average number of PU interactions is reduced from 50 to 32, corresponding to 69.2 mb minimum bias cross section in 2017 and 2018 data-taking period (see [here](https://twiki.cern.ch/twiki/bin/view/CMSPublic/LumiPublicResults));
 * jet cone radius decreased from 0.5 to 0.4;
+* save the actual event number, not the entry number to the `Event.Number` branch;
+* save all information pulled from `GenEventInfoProduct`;
 * technical changes which allow to run `DelphesCMSFWLite` anywhere (not just in the root directory of this repository).
 
 Running in CMSSW
@@ -37,7 +39,7 @@ cd delphes
 ./configure
 make clean && make distclean # for cleaning
 make -j8 # build
-source set_env.sh
+source ./set_env.sh
 ```
 
 Run (anywhere):
