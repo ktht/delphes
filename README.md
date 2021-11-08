@@ -7,6 +7,40 @@ Delphes is a C++ framework, performing a fast multipurpose detector response sim
 
 More details can be found on the Delphes website http://cp3.irmp.ucl.ac.be/projects/delphes
 
+Running in CMSSW
+================
+
+Set up your environment
+
+```bash
+source /cvmfs/cms.cern.ch/cmsset_default.sh
+cmsrel CMSSW_11_1_2 # need gcc 8
+cd $_/src
+cmsenv
+```
+
+Set up Delphes
+
+```bash
+cd $HOME/somedirectory
+git clone --depth 1 --branch 3.5.0 git@github.com:ktht/delphes.git
+cd delphes
+./configure
+make clean && make distclean # for cleaning
+make -j8 # build
+source set_env.sh
+```
+
+Run (anywhere):
+
+```bash
+DelphesCMSFWLite delphes_card_CMS_PileUp.tcl output.root input.root
+```
+`input.root` can be any ROOT file in CMS data tier format that stores `std::vector<reco::GenParticle>` (and possibly `std::vector<pat::PackedGenParticle>`), such as `GEN`, `GEN-SIM`, `AODSIM` or `MINIAODSIM`.
+The `DelphesCMSFWLite` command can be cancelled at any time.
+Whatever has been processed during the execution will be saved to an Ntuple called `output.root`.
+
+
 Quick start with Delphes
 ========================
 
