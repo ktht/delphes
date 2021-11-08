@@ -7,6 +7,15 @@ Delphes is a C++ framework, performing a fast multipurpose detector response sim
 
 More details can be found on the Delphes website http://cp3.irmp.ucl.ac.be/projects/delphes
 
+Changes wrt upstream
+====================
+
+The following changes have been implemented wrt 3.5.0 version of upstream:
+
+* average number of PU interactions is reduced from 50 to 32, corresponding to 69.2 mb minimum bias cross section in 2017 and 2018 data-taking period (see [here](https://twiki.cern.ch/twiki/bin/view/CMSPublic/LumiPublicResults));
+* jet cone radius decreased from 0.5 to 0.4;
+* technical changes which allow to run `DelphesCMSFWLite` anywhere (not just in the root directory of this repository).
+
 Running in CMSSW
 ================
 
@@ -39,7 +48,7 @@ DelphesCMSFWLite delphes_card_CMS_PileUp.tcl output.root input.root
 `input.root` can be any ROOT file in CMS data tier format that stores `std::vector<reco::GenParticle>` (and possibly `std::vector<pat::PackedGenParticle>`), such as `GEN`, `GEN-SIM`, `AODSIM` or `MINIAODSIM`.
 The `DelphesCMSFWLite` command can be cancelled at any time.
 Whatever has been processed during the execution will be saved to an Ntuple called `output.root`.
-
+For more information about PU simulation, see [these slides](https://indico.cern.ch/event/873524/contributions/3697290/attachments/1988392/3315700/Korea_DetectorSimulation2.pdf).
 
 Quick start with Delphes
 ========================
