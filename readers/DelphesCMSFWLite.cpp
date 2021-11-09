@@ -128,7 +128,7 @@ void ConvertInput(fwlite::Event &event, Long64_t eventCounter,
 
   element->Number = event.id().event();
 
-  element->ProcessID = handleGenEventInfo->signalProcessID();
+  element->ProcessID = event.id().luminosityBlock();//handleGenEventInfo->signalProcessID();
   element->MPI = 1;
   element->Weight = handleGenEventInfo->weight();
   element->Scale = handleGenEventInfo->qScale();
